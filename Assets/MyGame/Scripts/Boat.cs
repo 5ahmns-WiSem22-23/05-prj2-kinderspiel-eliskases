@@ -2,26 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boat : Movable
+public class Boat : Moveable
 {
-    private void Start()
+    public override IEnumerator CriticalCheckpoint()
     {
-        Dice.onRollDelegate += Move;
-
-        GameManager.checkpoints[checkpointIndex].AddMovable(this);
+        yield break;
     }
 
-    void Move(GameManager.Color diceColor)
+    private void OnEnable()
     {
-        if (diceColor != GameManager.Color.Red && diceColor != GameManager.Color.Green)
-            return;
+        onMoveDelegate += Moved;
+    }
 
-        checkpointIndex++;
-        GameManager.checkpoints[checkpointIndex].AddMovable(this);
-
-        if(checkpointIndex == GameManager.checkpoints.Count - 1)
-        {
-            Dice.onRollDelegate -= Move;
-        }
+    private void Moved()
+    {
+        GameManager.checkpoints[checkpointIndex].movables.ForEach(element => StartCoroutine(element.CriticalCheckpoint()));
     }
 }

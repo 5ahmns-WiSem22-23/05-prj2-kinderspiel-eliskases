@@ -3,19 +3,27 @@ using UnityEngine;
 
 public class Checkpoint
 {
-    public List<Movable> movables = new List<Movable>();
-    public float xPos { get; private set; }
+    public List<Moveable> movables = new List<Moveable>();
 
-    public Checkpoint(float x)
+    private float xPos;
+    private int index;
+
+    public Checkpoint(float x, int cpIndex)
     {
         xPos = x;
+        index = cpIndex;
     }
 
-    public void AddMovable(Movable movable)
+    public void AddMovable(Moveable moveable)
     {
-        movables.Add(movable);
-        Vector2 pos = movable.gameObject.transform.position;
+        movables.Add(moveable);
+        Vector2 pos = moveable.gameObject.transform.position;
         pos.x = xPos;
-        movable.gameObject.transform.position = pos;
+        moveable.gameObject.transform.position = pos;
+
+        if(index != 0)
+        {
+            GameManager.checkpoints[index - 1].movables.Remove(moveable);
+        }
     }
 }

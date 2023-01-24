@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static List<Fish> allFish = new List<Fish>();
-
     public enum Color
     {
         Red,
@@ -16,12 +14,13 @@ public class GameManager : MonoBehaviour
     }
 
     public static List<Checkpoint> checkpoints = new List<Checkpoint>();
+    public static int numCaught = 0; 
 
-    private void Start()
+    private void Awake()
     {
-        for(int i = -5; i < 5; i++)
+        for(int i = 0; i < 10; i++)
         {
-            Checkpoint cp = new Checkpoint(i);
+            Checkpoint cp = new Checkpoint(i - 5, i);
             checkpoints.Add(cp);
         }
     }

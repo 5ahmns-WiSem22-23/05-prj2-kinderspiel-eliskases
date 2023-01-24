@@ -299,7 +299,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c043e7a638e9e460da656bca161e0e62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: 3
+  headStart: 4
+  colors: 03000000
 --- !u!50 &108772310
 Rigidbody2D:
   serializedVersion: 4
@@ -652,7 +653,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c043e7a638e9e460da656bca161e0e62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: 2
+  headStart: 4
+  colors: 02000000
 --- !u!50 &690082031
 Rigidbody2D:
   serializedVersion: 4
@@ -876,7 +878,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c043e7a638e9e460da656bca161e0e62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: 5
+  headStart: 4
+  colors: 05000000
 --- !u!50 &1130678784
 Rigidbody2D:
   serializedVersion: 4
@@ -1249,6 +1252,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 670378e66b8aa434d8348af1d468500c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  headStart: 0
+  colors: 0000000001000000
 --- !u!1 &1715508928
 GameObject:
   m_ObjectHideFlags: 0
@@ -1281,7 +1286,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c043e7a638e9e460da656bca161e0e62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: 4
+  headStart: 4
+  colors: 04000000
 --- !u!212 &1715508930
 SpriteRenderer:
   m_ObjectHideFlags: 0

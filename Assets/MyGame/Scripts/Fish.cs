@@ -1,30 +1,14 @@
+using System.Collections;
 using UnityEngine;
 
-public class Fish : Movable
+public class Fish : Moveable
 {
-    [SerializeField]
-    private GameManager.Color color;
-
-    private void Start()
+    public override IEnumerator CriticalCheckpoint()
     {
-        GameManager.allFish.Add(this);
-        Dice.onRollDelegate += Move;
-
-        int numCheckpoints = GameManager.checkpoints.Count;
-        checkpointIndex = Mathf.FloorToInt(numCheckpoints / 2);
-        GameManager.checkpoints[checkpointIndex].AddMovable(this);
-    }
-
-    void Move(GameManager.Color diceColor)
-    {
-        if (diceColor != color) return;
-
-        checkpointIndex++;
-        GameManager.checkpoints[checkpointIndex].AddMovable(this);
-
-        if (checkpointIndex == GameManager.checkpoints.Count - 1)
-        {
-            Dice.onRollDelegate -= Move;
-        }
+        yield return new WaitForEndOfFrame();
+        GameManager.checkpoints[checkpointIndex].movables.Remove(this);
+        GameManager.numCaught++;
+        Dice.onRollDelegate -= Move;
+        Destroy(this.gameObject);
     }
 }
