@@ -1,27 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Fish : MonoBehaviour
+public class Fish : Movable
 {
     [SerializeField]
     private GameManager.Color color;
 
-    public bool isSafe { get; private set; } = false;
-
     private void Start()
     {
         GameManager.allFish.Add(this);
-        Dice.onRollDegate += Move;
+        Dice.onRollDelegate += Move;
+
+        int numCheckpoints = GameManager.checkpoints.Count;
+        checkpointIndex = Mathf.FloorToInt(numCheckpoints / 2);
+        GameManager.checkpoints[checkpointIndex].AddMovable(this);
     }
 
     void Move(GameManager.Color diceColor)
     {
         if (diceColor != color) return;
 
-        float posX = transform.position.x + 1;
-        float posY = transform.position.y;
+        checkpointIndex++;
+        GameManager.checkpoints[checkpointIndex].AddMovable(this);
 
-        transform.position = new Vector2(posX, posY);
+        if (checkpointIndex == GameManager.checkpoints.Count - 1)
+        {
+            Dice.onRollDelegate -= Move;
+        }
     }
 }

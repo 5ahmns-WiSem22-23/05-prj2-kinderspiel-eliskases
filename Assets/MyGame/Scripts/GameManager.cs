@@ -15,8 +15,14 @@ public class GameManager : MonoBehaviour
         Orange
     }
 
+    public static List<Checkpoint> checkpoints = new List<Checkpoint>();
+
     private void Start()
     {
-        
+        for(int i = -5; i < 5; i++)
+        {
+            Checkpoint cp = new Checkpoint(i);
+            checkpoints.Add(cp);
+        }
     }
 }

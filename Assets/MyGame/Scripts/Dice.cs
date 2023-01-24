@@ -3,7 +3,7 @@ using UnityEngine;
 public class Dice : MonoBehaviour
 {
     public delegate void OnRoll(GameManager.Color color);
-    public static OnRoll onRollDegate;
+    public static OnRoll onRollDelegate;
 
     [SerializeField]
     private SpriteRenderer front;
@@ -12,7 +12,7 @@ public class Dice : MonoBehaviour
     {
         int index = Random.Range(0, 6);
         GameManager.Color color = (GameManager.Color)index;
-        onRollDegate?.Invoke(color);
+        onRollDelegate?.Invoke(color);
 
         switch(color)
         {
