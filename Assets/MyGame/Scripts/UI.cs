@@ -11,7 +11,7 @@ public class UI : MonoBehaviour
     private void Start()
     {
        // It's only necessary to update the fish count once we have rolled the dice
-        Dice.onRollDelegate += OnRoll;
+        LuckyWheel.colorChosenDelegate += OnRoll;
     }
 
     private void OnRoll(GameManager.Color color)

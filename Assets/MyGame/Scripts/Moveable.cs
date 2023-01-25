@@ -17,7 +17,7 @@ public abstract class Moveable : MonoBehaviour
 
     private void Start()
     {
-        Dice.onRollDelegate += Move;
+        LuckyWheel.colorChosenDelegate += Move;
 
         checkpointIndex += headStart;
         GameManager.checkpoints[checkpointIndex].AddMovable(this);
@@ -35,7 +35,7 @@ public abstract class Moveable : MonoBehaviour
         {
             GameManager.checkpoints[GameManager.checkpoints.Count - 1].movables.Remove(this);
             ReachSea();
-            Dice.onRollDelegate -= Move;
+            LuckyWheel.colorChosenDelegate -= Move;
         }
 
         onMoveDelegate?.Invoke();
