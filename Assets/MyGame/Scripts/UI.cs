@@ -11,11 +11,16 @@ public class UI : MonoBehaviour
     private void Start()
     {
        // It's only necessary to update the fish count once we have rolled the dice
-        Dice.onRollDelegate += UpdateFishCount;
+        Dice.onRollDelegate += OnRoll;
     }
 
-    private void UpdateFishCount(GameManager.Color color)
+    private void OnRoll(GameManager.Color color)
     {
-        fishCount.text = GameManager.numCaught.ToString();
+        Invoke(nameof(UpdateFishCount), 0.25f);
+    }
+
+    private void UpdateFishCount()
+    {
+        fishCount.text = GameManager.numCaught.ToString(); 
     }
 }

@@ -33,6 +33,8 @@ public abstract class Moveable : MonoBehaviour
 
         if (checkpointIndex == GameManager.checkpoints.Count - 1)
         {
+            GameManager.checkpoints[GameManager.checkpoints.Count - 1].movables.Remove(this);
+            ReachSea();
             Dice.onRollDelegate -= Move;
         }
 

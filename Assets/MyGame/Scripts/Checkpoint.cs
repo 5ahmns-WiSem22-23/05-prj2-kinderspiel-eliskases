@@ -25,10 +25,5 @@ public class Checkpoint
         {
             GameManager.checkpoints[index - 1].movables.Remove(moveable);
         }
-
-        if(index == GameManager.checkpoints.Count - 1)
-        {
-            moveable.ReachSea();
-        }
     }
 }
