@@ -3,9 +3,6 @@ using UnityEngine;
 
 public class Fish : Moveable
 {
-
-
-
     public override IEnumerator CriticalCheckpoint()
     {
         GameManager.numCaught++;

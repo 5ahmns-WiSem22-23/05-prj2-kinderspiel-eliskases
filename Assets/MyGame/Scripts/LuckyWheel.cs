@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class LuckyWheel : MonoBehaviour
 {
@@ -8,32 +9,84 @@ public class LuckyWheel : MonoBehaviour
     private GameObject rotationHandler;
     [SerializeField]
     private float rotationFrequency;
+    [SerializeField]
+    private AnimationCurve animationCurve;
+    [SerializeField]
+    private TextMeshProUGUI buttonText;
 
-    private bool isSpinning;
+    private bool isSpinning = false;
+    private float defaultScale;
 
     public delegate void OnColorChosen(GameManager.Color color);
     public static OnColorChosen colorChosenDelegate;
 
-    private Coroutine coroutine;
+    private Coroutine spinCoroutine;
 
-    public void StartSpinning()
+    private void Start()
     {
-        coroutine = StartCoroutine(Spin());
+        defaultScale = transform.localScale.x;
+        StartCoroutine(ScaleWheel(0.5f * defaultScale));
+        buttonText.text = "Spin";
+    }
+
+    public void OnButtonPressed()
+    {
+        if (isSpinning)
+        {
+            buttonText.text = "Spin";
+            StopSpinning();
+        } else
+        {
+            buttonText.text = "Stop";
+            StartSpinning();
+        }
+    }
+
+    private void StartSpinning()
+    {
+        isSpinning = true;
+        spinCoroutine = StartCoroutine(Spin());
+        StartCoroutine(ScaleWheel(defaultScale));
     }
 
     private IEnumerator Spin()
     {
-        if (isSpinning) yield break;
-        isSpinning = true;
-
         YieldInstruction instruction = new WaitForEndOfFrame();
         
-
         while (true)
         {
             Vector3 rot = rotationHandler.transform.rotation.eulerAngles;
             rot.z -= Time.deltaTime * 360 * rotationFrequency;
             rotationHandler.transform.rotation = Quaternion.Euler(rot);
+            yield return instruction;
+        }
+    }
+
+    private IEnumerator ScaleWheel(float scale)
+    {
+        YieldInstruction instruction = new WaitForEndOfFrame();
+
+        Vector2 origin = gameObject.transform.localScale;
+        Vector2 destination = new Vector2(1, 1) * scale;
+
+        Vector2 currentScale;
+
+        float currentLerpTime = 0;
+        float clampLerpTime = 0;
+        float duration = 1;
+
+        while (true)
+        {
+            currentLerpTime += Time.deltaTime;
+            if (currentLerpTime >= duration)
+            {
+                break;
+            }
+
+            clampLerpTime = Mathf.Clamp01(currentLerpTime / duration);
+            currentScale = Vector3.Lerp(origin, destination, animationCurve.Evaluate(clampLerpTime));
+
+            transform.localScale = currentScale;
             yield return instruction;
         }
     }
@@ -50,11 +103,11 @@ public class LuckyWheel : MonoBehaviour
         public float angle;
     }
 
-    public void StopSpinning()
+    private void StopSpinning()
     {
-        if (!isSpinning) return;
         isSpinning = false;
-        StopCoroutine(coroutine);
+        StopCoroutine(spinCoroutine);
+        StartCoroutine(ScaleWheel(defaultScale * 0.5f));
 
         FishData[] fishData = {
             new FishData(GameManager.Color.Blue, 0),
