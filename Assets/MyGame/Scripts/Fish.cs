@@ -15,5 +15,8 @@ public class Fish : Moveable
     public override void ReachSea()
     {
         gameObject.GetComponent<SpriteRenderer>().color = Color.grey;
+        GameManager.numSafe++;
+
+        if (GameManager.numSafe == 4) GameManager.EndGame();
     }
 }
