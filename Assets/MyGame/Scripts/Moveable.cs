@@ -40,4 +40,5 @@ public abstract class Moveable : MonoBehaviour
     }
 
     public abstract IEnumerator CriticalCheckpoint();
+    public abstract void ReachSea();
 }

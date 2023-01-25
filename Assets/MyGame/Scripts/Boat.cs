@@ -18,4 +18,9 @@ public class Boat : Moveable
     {
         GameManager.checkpoints[checkpointIndex].movables.ForEach(element => StartCoroutine(element.CriticalCheckpoint()));
     }
+
+    public override void ReachSea()
+    {
+        print("Reach Sea");
+    }
 }

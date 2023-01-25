@@ -5,10 +5,15 @@ public class Fish : Moveable
 {
     public override IEnumerator CriticalCheckpoint()
     {
+        GameManager.numCaught++;
         yield return new WaitForEndOfFrame();
         GameManager.checkpoints[checkpointIndex].movables.Remove(this);
-        GameManager.numCaught++;
         Dice.onRollDelegate -= Move;
-        Destroy(this.gameObject);
+        Destroy(gameObject);
+    }
+
+    public override void ReachSea()
+    {
+        print("Reach Sea");
     }
 }
