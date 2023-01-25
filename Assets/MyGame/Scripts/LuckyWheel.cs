@@ -65,8 +65,6 @@ public class LuckyWheel : MonoBehaviour
 
         float alpha = rotationHandler.transform.eulerAngles.z;
 
-        print(alpha);
-
         float closest = 22.5f;
         GameManager.Color chosenColor = GameManager.Color.Green;
 
