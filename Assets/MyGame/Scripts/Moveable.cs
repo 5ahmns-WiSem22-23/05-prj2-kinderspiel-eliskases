@@ -15,6 +15,9 @@ public abstract class Moveable : MonoBehaviour
     [SerializeField]
     private GameManager.Color[] colors;
 
+    public AnimationCurve animationCurve;
+    public float animationDuration;
+
     private void Start()
     {
         LuckyWheel.colorChosenDelegate += Move;
