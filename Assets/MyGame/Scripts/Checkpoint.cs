@@ -6,10 +6,9 @@ public class Checkpoint
 {
     public List<Moveable> movables = new List<Moveable>();
 
-    private float xPos;
-    private int index;
-
-    private readonly float Y_ANIMATION_SCALE = 0.2f;
+    private readonly float xPos;
+    private readonly int index;
+    private const float Y_ANIMATION_SCALE = 0.2f;
 
     public Checkpoint(float x, int cpIndex)
     {

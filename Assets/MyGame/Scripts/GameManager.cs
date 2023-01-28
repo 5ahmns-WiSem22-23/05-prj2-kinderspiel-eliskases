@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
         Fish,
         Boat
     }
-    private static GameMode gameMode = GameMode.Fish;
+    public static GameMode gameMode { get; set; }
 
     public enum Color
     {
