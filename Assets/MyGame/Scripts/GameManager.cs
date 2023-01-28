@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -20,13 +21,20 @@ public class GameManager : MonoBehaviour
         Orange
     }
 
-    public static List<Checkpoint> checkpoints = new List<Checkpoint>();
-    public static int numCaught = 0;
-    public static int numSafe = 0;
+    public static List<Checkpoint> checkpoints;
+    public static int numCaught;
+    public static int numSafe;
+
+    public delegate void OnGameEnded(string message);
+    public static OnGameEnded gameEndedDelegate;
 
     private void Awake()
     {
-        for(int i = 0; i < 11; i++)
+        checkpoints = new List<Checkpoint>();
+        numCaught = 0;
+        numSafe = 0;
+
+        for (int i = 0; i < 11; i++)
         {
             Checkpoint cp = new Checkpoint(i - 5, i);
             checkpoints.Add(cp);
@@ -42,16 +50,19 @@ public class GameManager : MonoBehaviour
 
     static void Win()
     {
-        print("You Won");
+        string message = "Du hast gewonnen!";
+        gameEndedDelegate?.Invoke(message);
     }
 
     static void Lost()
     {
-        print("You Lost");
+        string message = "Du hast verloren!";
+        gameEndedDelegate?.Invoke(message);
     }
 
     static void Draw()
     {
-        print("Draw");
+        string message = "Unentschieden!";
+        gameEndedDelegate?.Invoke(message);
     }
 }

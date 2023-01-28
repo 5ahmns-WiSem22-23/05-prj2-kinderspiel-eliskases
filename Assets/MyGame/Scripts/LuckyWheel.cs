@@ -33,11 +33,11 @@ public class LuckyWheel : MonoBehaviour
     {
         if (isSpinning)
         {
-            buttonText.text = "Spin";
+            buttonText.text = "Drehen";
             StopSpinning();
         } else
         {
-            buttonText.text = "Stop";
+            buttonText.text = "Stop!";
             StartSpinning();
         }
     }

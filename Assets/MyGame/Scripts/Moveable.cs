@@ -26,7 +26,6 @@ public abstract class Moveable : MonoBehaviour
         GameManager.checkpoints[checkpointIndex].AddMovable(this);
     }
 
-
     protected void Move(GameManager.Color diceColor)
     {
         if (!Array.Exists(colors, element => element == diceColor)) return;
@@ -42,6 +41,11 @@ public abstract class Moveable : MonoBehaviour
         }
 
         onMoveDelegate?.Invoke();
+    }
+
+    private void OnDisable()
+    {
+        LuckyWheel.colorChosenDelegate -= Move;
     }
 
     public abstract IEnumerator CriticalCheckpoint();
