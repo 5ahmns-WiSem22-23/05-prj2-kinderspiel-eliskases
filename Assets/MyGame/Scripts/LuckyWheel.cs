@@ -131,6 +131,9 @@ public class LuckyWheel : MonoBehaviour
             }
         }
 
+        //This is a bit ugly, but it works anyway
+        if (alpha > 315) chosenColor = GameManager.Color.Blue;
+
         colorChosenDelegate?.Invoke(chosenColor);
     }
 }

@@ -73,14 +73,14 @@ public class UI : MonoBehaviour
 
     private void ShowFishPanel(GameManager.Color wheelColor)
     {
-        if (!GameManager.safeColors.Any( element => element == wheelColor)) return;
+        if (!GameManager.safeColors.Any(element => element == wheelColor)) return;
         fishPanel.SetActive(true);
     }
 
-    public void ChooseFish(Fish fish)
+    public void ChooseFish(ColorHelper colorHelper)
     {
         fishPanel.SetActive(false);
-        LuckyWheel.colorChosenDelegate?.Invoke(fish.colors[0]);
+        LuckyWheel.colorChosenDelegate?.Invoke(colorHelper.color);
     }
 
 

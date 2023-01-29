@@ -8,6 +8,7 @@ public class Fish : Moveable
         GameManager.numCaught++;
         yield return new WaitForEndOfFrame();
         GameManager.checkpoints[checkpointIndex].movables.Remove(this);
+        GameManager.caughtColors.AddRange(colors);
         LuckyWheel.colorChosenDelegate -= Move;
         Destroy(gameObject);
     }
@@ -16,6 +17,7 @@ public class Fish : Moveable
     {
         gameObject.GetComponent<SpriteRenderer>().color = Color.grey;
         GameManager.numSafe++;
+        GameManager.safeColors.AddRange(colors);
 
         if (GameManager.numSafe == 4) GameManager.EndGame();
     }
