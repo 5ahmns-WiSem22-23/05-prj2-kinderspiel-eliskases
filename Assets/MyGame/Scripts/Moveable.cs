@@ -12,8 +12,7 @@ public abstract class Moveable : MonoBehaviour
 
     [SerializeField]
     private int headStart;
-    [SerializeField]
-    private GameManager.Color[] colors;
+    public GameManager.Color[] colors;
 
     public AnimationCurve animationCurve;
     public float animationDuration;
@@ -26,9 +25,9 @@ public abstract class Moveable : MonoBehaviour
         GameManager.checkpoints[checkpointIndex].AddMovable(this);
     }
 
-    protected void Move(GameManager.Color diceColor)
+    protected void Move(GameManager.Color wheelColor)
     {
-        if (!Array.Exists(colors, element => element == diceColor)) return;
+        if (!Array.Exists(colors, element => element == wheelColor)) return;
             
         checkpointIndex++;
         GameManager.checkpoints[checkpointIndex].AddMovable(this);
@@ -41,11 +40,6 @@ public abstract class Moveable : MonoBehaviour
         }
 
         onMoveDelegate?.Invoke();
-    }
-
-    private void OnDisable()
-    {
-        LuckyWheel.colorChosenDelegate -= Move;
     }
 
     public abstract IEnumerator CriticalCheckpoint();

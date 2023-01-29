@@ -19,4 +19,9 @@ public class Fish : Moveable
 
         if (GameManager.numSafe == 4) GameManager.EndGame();
     }
+
+    private void OnDisable()
+    {
+        LuckyWheel.colorChosenDelegate -= Move;
+    }
 }

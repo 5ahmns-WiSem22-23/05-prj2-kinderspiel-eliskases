@@ -25,12 +25,18 @@ public class GameManager : MonoBehaviour
     public static int numCaught;
     public static int numSafe;
 
+    public static List<Color> caughtColors;
+    public static List<Color> safeColors;
+
     public delegate void OnGameEnded(string message);
     public static OnGameEnded gameEndedDelegate;
 
     private void Awake()
     {
         checkpoints = new List<Checkpoint>();
+        caughtColors = new List<Color>();
+        safeColors = new List<Color>();
+
         numCaught = 0;
         numSafe = 0;
 
@@ -65,4 +71,6 @@ public class GameManager : MonoBehaviour
         string message = "Unentschieden!";
         gameEndedDelegate?.Invoke(message);
     }
+
+
 }

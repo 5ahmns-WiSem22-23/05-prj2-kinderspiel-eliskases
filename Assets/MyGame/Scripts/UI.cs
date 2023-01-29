@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class UI : MonoBehaviour
 {
@@ -18,12 +19,17 @@ public class UI : MonoBehaviour
     private GameObject wheel;
     [SerializeField]
     private TextMeshProUGUI endText;
+    [SerializeField]
+    private GameObject fishPanel;
 
     private void Start()
     {
-       // It's only necessary to update the fish count once we have rolled the dice
+        fishCount.text = "0";
+
         LuckyWheel.colorChosenDelegate += OnRoll;
+        LuckyWheel.colorChosenDelegate += ShowFishPanel;
         GameManager.gameEndedDelegate += EndPanel;
+
         ToggleGameplay(false);
     }
 
@@ -55,6 +61,8 @@ public class UI : MonoBehaviour
         wheel.SetActive(toggle);
         startPanel.SetActive(!toggle && !end);
         endPanel.SetActive(!toggle && end);
+
+        fishPanel.SetActive(false);
     }
 
     private void EndPanel(string message)
@@ -63,9 +71,23 @@ public class UI : MonoBehaviour
         endText.text = message;
     }
 
+    private void ShowFishPanel(GameManager.Color wheelColor)
+    {
+        if (!GameManager.safeColors.Any( element => element == wheelColor)) return;
+        fishPanel.SetActive(true);
+    }
+
+    public void ChooseFish(Fish fish)
+    {
+        fishPanel.SetActive(false);
+        LuckyWheel.colorChosenDelegate?.Invoke(fish.colors[0]);
+    }
+
+
     private void OnDisable()
     {
         LuckyWheel.colorChosenDelegate -= OnRoll;
+        LuckyWheel.colorChosenDelegate -= ShowFishPanel;
         GameManager.gameEndedDelegate -= EndPanel;
     }
 }
