@@ -26,7 +26,7 @@ public class LuckyWheel : MonoBehaviour
     {
         defaultScale = transform.localScale.x;
         StartCoroutine(ScaleWheel(0.5f * defaultScale));
-        buttonText.text = "Spin";
+        buttonText.text = "Drehen";
     }
 
     public void OnButtonPressed()
@@ -37,7 +37,7 @@ public class LuckyWheel : MonoBehaviour
             StopSpinning();
         } else
         {
-            buttonText.text = "Stop!";
+            buttonText.text = "Stopp!";
             StartSpinning();
         }
     }

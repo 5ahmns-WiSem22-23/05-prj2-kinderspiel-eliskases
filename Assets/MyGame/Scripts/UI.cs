@@ -24,12 +24,11 @@ public class UI : MonoBehaviour
 
     private void Start()
     {
-        fishCount.text = "0";
-
         LuckyWheel.colorChosenDelegate += OnRoll;
         LuckyWheel.colorChosenDelegate += ShowFishPanel;
         GameManager.gameEndedDelegate += EndPanel;
 
+        UpdateFishCount();
         ToggleGameplay(false);
     }
 
@@ -40,7 +39,7 @@ public class UI : MonoBehaviour
 
     private void UpdateFishCount()
     {
-        fishCount.text = GameManager.numCaught.ToString(); 
+        fishCount.text = $"{GameManager.numCaught.ToString()} Fische sind gefangen"; 
     }
 
     public void SetGameMode(GameModeHelper helper)
