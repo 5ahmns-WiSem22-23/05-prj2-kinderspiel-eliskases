@@ -7,7 +7,7 @@ public class Boat : Moveable
 {
     public override IEnumerator CriticalCheckpoint()
     {
-        if (GameManager.numCaught == 4) GameManager.EndGame();
+        if (GameManager.numCaught + GameManager.numSafe >= 4) GameManager.EndGame();
         yield break;
     }
 

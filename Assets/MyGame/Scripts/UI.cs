@@ -39,7 +39,7 @@ public class UI : MonoBehaviour
 
     private void UpdateFishCount()
     {
-        fishCount.text = $"{GameManager.numCaught.ToString()} Fische sind gefangen"; 
+        fishCount.text = $"{GameManager.numCaught} Fische sind gefangen"; 
     }
 
     public void SetGameMode(GameModeHelper helper)

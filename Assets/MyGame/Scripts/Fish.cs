@@ -15,9 +15,7 @@ public class Fish : Moveable
 
     public override void ReachSea()
     {
-        gameObject.GetComponent<SpriteRenderer>().color = Color.grey;
-        GameManager.numSafe++;
-        GameManager.safeColors.AddRange(colors);
+        StartCoroutine(SwimToOcean());
 
         if (GameManager.numSafe == 4) GameManager.EndGame();
     }
@@ -25,5 +23,40 @@ public class Fish : Moveable
     private void OnDisable()
     {
         LuckyWheel.colorChosenDelegate -= Move;
+    }
+
+    private IEnumerator SwimToOcean()
+    {
+        // We need to wait a frame tok execute this
+        yield return 0;
+        GameManager.numSafe++;
+        GameManager.safeColors.AddRange(colors);
+
+        YieldInstruction instruction = new WaitForEndOfFrame();
+
+        Vector2 origin = transform.position;
+        Vector2 destination = new Vector2(origin.x + 8, origin.y);
+
+        Vector2 currentPos;
+
+        float currentLerpTime = 0;
+        float clampLerpTime = 0;
+
+        const float duration = 3;
+
+        while (true)
+        {
+            currentLerpTime += Time.deltaTime;
+            if (currentLerpTime >= duration)
+            {
+                break;
+            }
+
+            clampLerpTime = Mathf.Clamp01(currentLerpTime / duration);
+            currentPos = Vector3.Lerp(origin, destination, animationCurve.Evaluate(clampLerpTime));
+
+            transform.position = currentPos;
+            yield return instruction;
+        }
     }
 }
