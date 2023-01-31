@@ -46,7 +46,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public static void EndGame()
+
+    public static void CheckIfGameEnded()
+    {
+        if (numCaught + numSafe < 4) return;
+        EndGame();
+    }
+
+    static void EndGame()
     {
         if (numCaught == 2) Draw();
         else if (gameMode == GameMode.Fish && numCaught < 2 || gameMode == GameMode.Boat && numCaught > 2) Win();

@@ -5,8 +5,8 @@ public class Boat : Moveable
 {
     public override IEnumerator CriticalCheckpoint()
     {
-        if (GameManager.numCaught + GameManager.numSafe >= 4) GameManager.EndGame();
-        yield break;
+        yield return 0;
+        GameManager.CheckIfGameEnded();
     }
 
     private void OnEnable()
@@ -22,7 +22,8 @@ public class Boat : Moveable
 
     public override void ReachSea()
     {
-        GameManager.EndGame();
+        // The game definitely ended at this point
+        GameManager.CheckIfGameEnded();
     }
 
     private void FishAlreadyCaught(GameManager.Color wheelColor)

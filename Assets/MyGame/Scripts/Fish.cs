@@ -16,8 +16,6 @@ public class Fish : Moveable
     public override void ReachSea()
     {
         StartCoroutine(SwimToOcean());
-
-        if (GameManager.numSafe == 4) GameManager.EndGame();
     }
 
     private void OnDisable()
@@ -27,10 +25,11 @@ public class Fish : Moveable
 
     private IEnumerator SwimToOcean()
     {
-        // We need to wait a frame tok execute this
+        // We need to wait a frame to execute this
         yield return 0;
         GameManager.numSafe++;
         GameManager.safeColors.AddRange(colors);
+        GameManager.CheckIfGameEnded();
 
         YieldInstruction instruction = new WaitForEndOfFrame();
 
